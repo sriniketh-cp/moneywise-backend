@@ -36,7 +36,7 @@ app.post("/send-email",async (req,res) =>{
 
   try{
     await transporter.sendMail({
-      from:contact@moneywisemag.in,
+      from:"contact@moneywisemag.in",
       to:"sriniketh.sudheendra@gmail.com",
       subject:`New subscription from ${name}`,
       text:`
