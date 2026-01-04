@@ -13,7 +13,7 @@ app.use(cors())
 app.use(express.json())
 
 const transporter = nodemailer.createTransport({
-  host: "stmp-relay.brevo.com",
+  host: "smtp-relay.brevo.com",
   port: 587,
   secure: false, // required for 587
   auth: {
