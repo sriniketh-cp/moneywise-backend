@@ -46,7 +46,7 @@ app.post("/send-email",async (req,res) =>{
       to:[
         {
           email:"editor@moneywisemag.in",
-          name:"chief-editor"
+          name:"chief-editor",
         },
         ],
       subject:`New Subscription from ${name}`,
