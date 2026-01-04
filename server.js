@@ -34,7 +34,7 @@ app.listen(PORT,()=>{
 app.post("/send-email",async (req,res) =>{
   const {name,email,address,phone,plans}=req.body||{};
 
-  if(!name||!enail!Array.isArray(plans)){
+  if(!name||!email||!Array.isArray(plans)){
     return res.status(400).json({
       sucess:false,
       message:"Invalid request body",
