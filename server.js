@@ -31,7 +31,7 @@ app.post("/send-email",async (req,res) =>{
 
   try{
     const response=await fetch("https://api.brevo.com/v3/smtp/email",{
-        method:"POST"
+        method:"POST",
         headers:{
           "api-key":process.env.BREVO_API_KEY,
           "Content-Type":"application/json"
