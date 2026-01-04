@@ -34,8 +34,8 @@ app.post("/send-email",async (req,res) =>{
         method:"POST",
         headers:{
           "api-key":process.env.BREVO_API_KEY,
-          "Content-Type":"application/json"
-          "accept":"application/json"
+          "Content-Type":"application/json",
+          "accept":"application/json",
 
         },
     body:JSON.stringify({
