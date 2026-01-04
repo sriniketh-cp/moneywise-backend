@@ -13,14 +13,29 @@ app.use(cors())
 app.use(express.json())
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
+  host: "stmp-relay.brevo.com",
+  port: 587,
   secure: false, // required for 587
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
+  tls:{
+    rejectUnauthorized:false
+},
+ connectionTimeout:2000,
+ greetingTimeout:2000,
+ socketTimeout;20000,
 });
+
+transporter.verify((err, success) => {
+  if (err) {
+    console.error("SMTP VERIFY FAILED:", err);
+  } else {
+    console.log("SMTP SERVER READY");
+  }
+});
+
 
 
 app.get("/" ,(req,res)=>{
