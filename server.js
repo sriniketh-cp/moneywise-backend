@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from "dotenv"
+import fetch from "node-fetch"
 
 dotenv.config();
 
@@ -13,12 +14,7 @@ app.use(express.json())
 
 
 
-transporter.verify((err, success) => {
-  if (err) {
-    console.error("SMTP VERIFY FAILED:", err);
-  } else {
-    console.log("SMTP SERVER READY");
-  }
+
 });
 
 
@@ -42,7 +38,7 @@ app.post("/send-email",async (req,res) =>{
   }
 
   try{
-    const response=await fetch("https://api.brevo.com/v3/smtp/email",
+    const response=await fetch("https://api.brevo.com/v3/smtp/email",{
         method:"POST"
         headers:{
           "api-key":process.env.BREVO_API_KEY,
@@ -61,8 +57,8 @@ app.post("/send-email",async (req,res) =>{
           name:"chief-editor"
         },
         ],
-      subject:`New Subscription from ${name}`
-      textContent:
+      subject:`New Subscription from ${name}`,
+      textContent:`
       Name:${name}
       Email:${email}
       Address:${address}
@@ -79,7 +75,7 @@ const result=await response.json();
 if(!response.ok){
 console.error("BREVO API ERROR:" ,result);
 return res.status(500).json({
-sucess:false,
+success:false,
 message:"Email failed"
 });
 }
