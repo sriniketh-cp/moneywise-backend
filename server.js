@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from "dotenv"
 import nodemailer from 'nodemailer'
-import { generateReceipt } from "./recipt_generator.js";
+import {generaterecipt} from "./recipt_generator.js";
 
 dotenv.config();
 
