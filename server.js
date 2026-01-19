@@ -21,7 +21,7 @@ const transporter = nodemailer.createTransport({
 app.use(cors())
 app.use(express.json())
 
-app.use("/receipts", express.static("receipts"));
+app.use("/receipts", express.static(path.join(process.cwd(), "receipts")));
 
 
 app.get("/" ,(req,res)=>{
