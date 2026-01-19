@@ -2,7 +2,8 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from "dotenv"
 import nodemailer from 'nodemailer'
-import { generateReceipt } from "./recipt_generator.js";
+import {generaterecipt} from "./recipt_generator.js";
+
 
 dotenv.config();
 
@@ -36,7 +37,7 @@ app.post("/send-email",async (req,res) =>{
   const {name,email,address,phone,TransactionId,plans}=req.body
   
   try{
-    const reciptfile=generateReceipt(req.body)
+    const reciptfile=generaterecipt(req.body)
     
     await transporter.sendMail({
       from:process.env.EMAIL_USER,
