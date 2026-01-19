@@ -28,7 +28,7 @@ app.listen(PORT,()=>{
 })
 
 app.post("/send-email",async (req,res) =>{
-  const {name,email,address,phone,plans}=req.body
+  const {name,email,address,phone,plans,transaction_id}=req.body
 
   try{
     await transporter.sendMail({
@@ -40,7 +40,8 @@ app.post("/send-email",async (req,res) =>{
       email:${email},
       Address:${address},
       Phone:${phone},
-      Plans Selected:${plans.join(",")}
+      Plans Selected:${plans.join(",")},
+      transaction ID:${transaction_id}
       `
     })
     res.json({success:true,message:"Email sent sucessfully"
