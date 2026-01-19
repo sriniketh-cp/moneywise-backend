@@ -1,18 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from "dotenv"
-import nodemailer from 'nodemailer'
 
 dotenv.config();
 
-const transporter=nodemailer.createTransport({
-  service:"gmail",
-  auth:{
-    user:process.env.EMAIL_USER,
-    pass:process.env.EMAIL_PASS,
-
-  }
-})
 const app=express();
 const PORT=process.env.PORT||5000;
 
@@ -28,7 +19,7 @@ app.listen(PORT,()=>{
 })
 
 app.post("/send-email",async (req,res) =>{
-  const {name,email,address,phone,plans,transaction_id}=req.body
+  const {name,email,address,phone,plans}=req.body
 
   try{
     await transporter.sendMail({
@@ -40,8 +31,7 @@ app.post("/send-email",async (req,res) =>{
       email:${email},
       Address:${address},
       Phone:${phone},
-      Plans Selected:${plans.join(",")},
-      transaction ID:${transaction_id}
+      Plans Selected:${plans.join(",")}
       `
     })
     res.json({success:true,message:"Email sent sucessfully"
