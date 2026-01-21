@@ -3,7 +3,7 @@ import fs from "fs"
 import path from "path"
 
 export function generaterecipt(data) {
-    const receiptsDir=path.join(process.cwd(),"recipts")
+    const receiptsDir=path.join(process.cwd(),"receipts")
 
     if(!fs.existsSync(receiptsDir)) {
         fs.mkdirSync(receiptsDir,{recursive:true})
