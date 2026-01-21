@@ -2,7 +2,8 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from "dotenv"
 import nodemailer from 'nodemailer'
-import {generaterecipt} from "./recipt_generator.js";
+import {Resend} from "resend"
+import {generaterecipt} from "./receipt_generator.js";
 import path from "path";
 
 
@@ -11,14 +12,7 @@ dotenv.config();
 const app=express();
 const PORT=process.env.PORT||5000;
 
-// Create email transporter
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
+const resend=new Resend(process.env.RESEND_API_KEY)
 
 app.use(
   cors({
@@ -42,29 +36,35 @@ app.listen(PORT,()=>{
 })
 
 app.post("/send-email",async (req,res) =>{
-  const {name,email,address,phone,TransactionId,plans}=req.body
-  
   try{
-    const reciptfile=generaterecipt(req.body)
-    
-    await transporter.sendMail({
-      from:process.env.EMAIL_USER,
+    const receiptFile=generaterecipt(req.body)
+    const receiptUrl=`https://moneywisemag.in/receipts/${receiptFile}`
+
+    await resend.emails.send({
+      from:"Moneywise <onborading@resend.dev>",
       to:"sriniketh.sudheendra@gmail.com",
-      subject:`New subscription from ${name}`,
-      text:`
-      Name: ${name}
-      Email: ${email}
-      Address: ${address}
-      Phone: ${phone}
-      Transaction ID: ${TransactionId}
-      Plans Selected: ${plans.join(", ")}
+      subject:`New subscription from ${req.body.name};`,
+      html:`
+      <h2>New Subscription</h2>
+      <p><strong>Name:</strong>${req.body.name}</p>
+      <p><strong>Email:</strong>${req.body.email}</p>
+      <p><strong>Transaction ID:</strong>${req.body.TransactionId}</p>
+      <p><strong>Plans:</strong>${req.body.plans.join(",")}</p>
+      <p>
+      <a href="${receiptUrl}">Download Recipt</a>
+      </p>
       `
     })
-    res.json({success:true,message:"Email sent sucessfully",
-      reciptUrl:`https://moneywisemag.in/recipts/${reciptfile}`
+    res.json({
+      success:"true",
+      message:"Email sent sucessfully",
+      receiptUrl
     })
   }catch(error) {
-    console.error("Email Error:", error)
-    res.status(500).json({success:false,message:"Email Failed", error: error.message})
+    console.error("Email Error: ",error)
+    res.status(500).json({
+      success:false,
+      message:"Email Failed"
+    })
   }
-})
+});
