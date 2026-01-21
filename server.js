@@ -42,7 +42,7 @@ app.post("/send-email",async (req,res) =>{
 
     await resend.emails.send({
       from:"Moneywise <onborading@resend.dev>",
-      to:"sriniketh.sudheendra@gmail.com",
+      to:"contact@moneywisemag.in",
       subject:`New subscription from ${req.body.name};`,
       html:`
       <h2>New Subscription</h2>
