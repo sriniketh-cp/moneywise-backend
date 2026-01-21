@@ -3,6 +3,11 @@ import fs from "fs"
 import path from "path"
 
 export function generaterecipt(data) {
+    const reciptsDir=path.join(process.cwd(),"recipts")
+
+    if(!fs.existsSync(reciptsDir)) {
+        fs.mkdirSync(reciptsDir,{recursive:true})
+    }
     const doc=new PDFDocument({size:"A4",margin:50})
 
     const fileName=`recipt-${data.TransactionId}.pdf`

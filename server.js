@@ -20,7 +20,14 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-app.use(cors())
+app.use(
+  cors({
+    origin:[
+      "http://localhost:5173",
+      "https://moneywisemag.in"
+    ],
+    methods:["GET","POST"]
+  }))
 app.use(express.json())
 
 app.use("/receipts", express.static(path.join(process.cwd(), "receipts")));
