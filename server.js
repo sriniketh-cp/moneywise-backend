@@ -1,7 +1,6 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from "dotenv"
-import nodemailer from 'nodemailer'
 import {Resend} from "resend"
 import {generaterecipt} from "./receipt_generator.js";
 import path from "path";
@@ -38,7 +37,8 @@ app.listen(PORT,()=>{
 app.post("/send-email",async (req,res) =>{
   try{
     const receiptFile=generaterecipt(req.body)
-    const receiptUrl=`https://moneywisemag.in/receipts/${receiptFile}`
+    const receiptUrl=`https://moneywise-backend-mug9.onrender.com/receipts/${receiptFile}`;
+    
 
     await resend.emails.send({
       from:"Moneywise <onborading@resend.dev>",
