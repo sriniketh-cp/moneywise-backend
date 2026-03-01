@@ -21,9 +21,11 @@ app.use(
       "capacitor://localhost",
       "http://localhost"
     ],
-    methods:["GET","POST"]
+    methods:["GET","POST,"OPTIONS"]
   }))
 app.use(express.json())
+
+app.options("*", cors());
 
 app.use("/receipts", express.static(path.join(process.cwd(), "receipts")));
 
