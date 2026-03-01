@@ -36,7 +36,7 @@ app.listen(PORT,()=>{
 
 app.post("/send-email",async (req,res) =>{
   try{
-    const receiptFile=generaterecipt(req.body)
+    const receiptFile=await generaterecipt(req.body)
     const receiptUrl=`https://moneywise-backend-mug9.onrender.com/receipts/${receiptFile}`;
     
 
