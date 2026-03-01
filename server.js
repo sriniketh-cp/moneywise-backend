@@ -14,6 +14,7 @@ const PORT=process.env.PORT||5000;
 const resend=new Resend(process.env.RESEND_API_KEY)
 
 app.use(
+   "/receipts",
   cors({
     credentials:true,
     origin:true,
