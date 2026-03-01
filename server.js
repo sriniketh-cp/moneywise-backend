@@ -17,7 +17,9 @@ app.use(
   cors({
     origin:[
       "http://localhost:5173",
-      "https://moneywisemag.in"
+      "https://moneywisemag.in",
+      "capacitor://localhost",
+      "http://localhost"
     ],
     methods:["GET","POST"]
   }))
