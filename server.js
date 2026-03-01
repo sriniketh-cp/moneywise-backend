@@ -21,7 +21,6 @@ app.use(
   }))
 app.use(express.json())
 
-app.options("/*", cors());
 
 app.use("/receipts", express.static(path.join(process.cwd(), "receipts")));
 
